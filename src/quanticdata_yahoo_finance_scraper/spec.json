@@ -1,0 +1,99 @@
+{
+ "cli": "yahoo-finance-scraper",
+ "name": "Yahoo Finance Scraper",
+ "version": "0.1.0",
+ "description": "Yahoo Finance scraper for Python and the command line: live quotes for stocks, ETFs, indices and currency pairs with price, change, volume, day and 52-week range, plus OHLCV price history, as JSON or CSV. Free and open source; sign in with your QuanticData account, no proxies or headless browser to run.",
+ "links": {
+  "repo": "https://github.com/quantumproxies/yahoo-finance-scraper",
+  "page": "https://quanticdata.io/collectors/stock-data-api/?utm_source=github&utm_medium=cli&utm_campaign=yahoo-finance-scraper",
+  "billing": "https://app.quanticdata.io/billing?utm_source=github&utm_medium=cli&utm_campaign=yahoo-finance-scraper",
+  "pricing": "https://quanticdata.io/pricing/?utm_source=github&utm_medium=cli&utm_campaign=yahoo-finance-scraper"
+ },
+ "commands": [
+  {
+   "name": "quote",
+   "collector": "yahoo_finance",
+   "method": "quote",
+   "help": "quote and optional price history for one or more ticker symbols",
+   "description": "Quote of each ticker symbol: price, change, volume, day and 52-week range, exchange and currency, with the OHLCV price history when --include-history is on.",
+   "positional": "symbols",
+   "positional_is_list": true,
+   "positional_optional": false,
+   "columns": [
+    "symbol",
+    "name",
+    "price",
+    "currency",
+    "change_percent",
+    "volume",
+    "fifty_two_week_high"
+   ],
+   "sample": "yahoo_finance",
+   "inputs": [
+    {
+     "name": "symbols",
+     "type": "string[]",
+     "required": true,
+     "description": "Ticker symbols as Yahoo Finance writes them, e.g. AAPL, MSFT, ^GSPC, EURUSD=X.",
+     "arg": "symbols"
+    },
+    {
+     "name": "range",
+     "type": "string",
+     "required": false,
+     "description": "How far back the price history goes when --include-history is on.",
+     "enum": [
+      "1d",
+      "5d",
+      "1mo",
+      "3mo",
+      "6mo",
+      "1y",
+      "2y",
+      "5y",
+      "10y",
+      "ytd",
+      "max"
+     ],
+     "default": "1mo",
+     "arg": "range"
+    },
+    {
+     "name": "interval",
+     "type": "string",
+     "required": false,
+     "description": "Candle size of the price history.",
+     "enum": [
+      "1m",
+      "5m",
+      "15m",
+      "1h",
+      "1d",
+      "1wk",
+      "1mo"
+     ],
+     "default": "1d",
+     "arg": "interval"
+    },
+    {
+     "name": "include_history",
+     "type": "boolean",
+     "required": false,
+     "description": "Attach the OHLCV price history (the last 120 points) to each row.",
+     "default": false,
+     "arg": "include_history"
+    },
+    {
+     "name": "max_results",
+     "type": "integer",
+     "required": false,
+     "description": "How many symbols to deliver at most (1–50). Set it to the number of symbols you send when that is more than 10. You pay only for delivered symbols.",
+     "min": 1,
+     "max": 50,
+     "default": 10,
+     "arg": "max_results"
+    }
+   ]
+  }
+ ]
+}
